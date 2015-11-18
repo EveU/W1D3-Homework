@@ -85,6 +85,7 @@ def largest_bank_account_holder()
   for acc in ACCOUNTS
     if acc[:amount] > largest_account_amount
       largest_account = acc
+      largest_account_amount = acc[:amount]
     end
   end
   return largest_account[:holder_name]
@@ -94,10 +95,49 @@ def largest_pers_acc_holder()
   largest_account = {}
   largest_account_amount = 0
   for acc in ACCOUNTS
-      if (acc[:amount] > largest_account_amount) && (acc[:type] == "personal")
-        largest_account = acc
-      end
+    if (acc[:amount] > largest_account_amount) && (acc[:type] == "personal")
+      largest_account = acc
+      largest_account_amount = acc[:amount]
     end
-    return largest_account[:holder_name]
+  end
+  return largest_account[:holder_name]
 end
 
+##EXTRAS
+
+def total_cash_in_personal_accounts()
+  personal_total = 0
+  for acc in ACCOUNTS
+    personal_total += acc[:amount] if acc[:type] == "personal"
+  end
+  return personal_total
+end
+
+def business_vs_personal(business, personal)
+  difference = business - personal
+  if difference == 0
+    return "The total amount in business accounts is the same as the total amount in personal accounts!"
+  elsif difference > 0
+    return "There is #{difference} more in business accounts than in personal accounts."
+  else
+    return "There is #{-difference} more in personal accounts than in business accounts."
+  end
+end
+
+def create_new_account()
+  new_account = {}
+  #get account holder
+  puts "Who would you like to create an account for?"
+  new_account[:holder_name] = gets.chomp
+  #get account type
+  puts "What type of account is it? (business/personal)"
+  new_account[:type] = gets.chomp.downcase
+  unless new_account[:type] == ("business" || "personal")
+    puts "Invalid account type. Please enter business or personal:"
+    new_account[:type] = gets.chomp
+  end
+  #get account amount
+  puts "What is the initial amount?"
+  new_account[:amount] = gets.chomp.to_i
+  return new_account
+end
