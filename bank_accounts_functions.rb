@@ -55,10 +55,10 @@ def print_owner_names()
   end
 end
 
-def total_cash_in_bank()
+def total_cash_in_bank(type=nil)
   total_amount = 0
   for acc in ACCOUNTS
-    total_amount += acc[:amount]
+    total_amount += acc[:amount] if !type || acc[:type] == type
   end
   return total_amount
 end
@@ -67,8 +67,8 @@ def last_bank_account_holder()
   ACCOUNTS.last[:holder_name]
 end
 
-def average_bank_account_value(total_amount, number_of_accounts)
-  (total_amount.to_f / number_of_accounts).round(2)
+def average_bank_account_value()
+  (total_cash_in_bank.to_f / number_of_bank_accounts).round(2)
 end
 
 def total_cash_in_business_accounts()

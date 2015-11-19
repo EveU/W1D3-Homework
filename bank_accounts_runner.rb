@@ -26,7 +26,7 @@ puts "The last bank account owner is #{last_bank_owner}"
 puts "\n"
 
 ##average bank account value
-average_account_value = average_bank_account_value(total_cash, bank_accounts_count)
+average_account_value = average_bank_account_value()
 puts "The average bank account value is #{average_account_value}"
 puts "\n"
 
@@ -34,6 +34,10 @@ puts "\n"
 total_business_cash = total_cash_in_business_accounts()
 puts "Total in business accounts: #{total_business_cash}"
 puts "\n"
+
+# total_business_cash = total_cash_in_bank("business")
+# puts "Total in business accounts: #{total_business_cash}"
+# puts "\n"
 
 ###holder of largest bank account
 largest_account_holder = largest_bank_account_holder()
