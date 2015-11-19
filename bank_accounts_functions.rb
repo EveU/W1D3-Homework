@@ -132,9 +132,9 @@ def create_new_account()
   #get account type
   puts "What type of account is it? (business/personal)"
   new_account[:type] = gets.chomp.downcase
-  unless new_account[:type] == ("business" || "personal")
+  until new_account[:type] == "business" || new_account[:type] == "personal"
     puts "Invalid account type. Please enter business or personal:"
-    new_account[:type] = gets.chomp
+    new_account[:type] = gets.chomp.downcase
   end
   #get account amount
   puts "What is the initial amount?"
