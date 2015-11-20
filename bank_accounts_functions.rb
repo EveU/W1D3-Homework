@@ -50,17 +50,13 @@ def first_bank_account_holder()
 end
 
 def print_owner_names()
-  for acc in ACCOUNTS
-    puts acc[:holder_name]
-  end
+  ACCOUNTS.each {|acc| puts acc[:holder_name] }
 end
 
 def total_cash_in_bank(type=nil)
   total_amount = 0
-  for acc in ACCOUNTS
-    total_amount += acc[:amount] if !type || acc[:type] == type
-  end
-  return total_amount
+  ACCOUNTS.each { |acc| total_amount += acc[:amount] if !type || acc[:type] == type }
+  total_amount
 end
 
 def last_bank_account_holder()
@@ -71,47 +67,47 @@ def average_bank_account_value()
   (total_cash_in_bank.to_f / number_of_bank_accounts).round(2)
 end
 
-def total_cash_in_business_accounts()
-  business_total = 0
-  for acc in ACCOUNTS
-    business_total += acc[:amount] if acc[:type] == "business"
-  end
-  return business_total
-end
 
-def largest_bank_account_holder()
-  largest_account = {}
-  largest_account_amount = 0
-  for acc in ACCOUNTS
-    if acc[:amount] > largest_account_amount
+#**Replaced by updated total_cash_in_bank**
+# def total_cash_in_business_accounts()
+#   business_total = 0
+#   ACCOUNTS.each { |acc| business_total += acc[:amount] if acc[:type] == "business" }
+#   business_total
+# end
+
+
+def largest_bank_account_holder(type=nil)
+  largest_account = {holder_name: "", amount: 0}
+  ACCOUNTS.each do |acc|
+    if acc[:amount] > largest_account[:amount] && !type || acc[:type] == type 
       largest_account = acc
-      largest_account_amount = acc[:amount]
     end
   end
-  return largest_account[:holder_name]
+  largest_account[:holder_name]
 end
 
-def largest_pers_acc_holder()
-  largest_account = {}
-  largest_account_amount = 0
-  for acc in ACCOUNTS
-    if (acc[:amount] > largest_account_amount) && (acc[:type] == "personal")
-      largest_account = acc
-      largest_account_amount = acc[:amount]
-    end
-  end
-  return largest_account[:holder_name]
-end
+
+#**Replaced by updated largest_bank_account_holder**
+# def largest_pers_acc_holder()
+#   largest_account = {}
+#   largest_account_amount = 0
+#   ACCOUNTS.each { |acc|
+#     if (acc[:amount] > largest_account_amount) && (acc[:type] == "personal")
+#       largest_account = acc
+#       largest_account_amount = acc[:amount]
+#     end
+#   }
+#   largest_account[:holder_name]
+# end
 
 ##EXTRAS
 
-def total_cash_in_personal_accounts()
-  personal_total = 0
-  for acc in ACCOUNTS
-    personal_total += acc[:amount] if acc[:type] == "personal"
-  end
-  return personal_total
-end
+#**Replaced by updated total_cash_in_bank**
+# def total_cash_in_personal_accounts()
+#   personal_total = 0
+#   ACCOUNTS.each { |acc| personal_total += acc[:amount] if acc[:type] == "personal" }
+#   personal_total
+# end
 
 def business_vs_personal(business, personal)
   difference = business - personal
@@ -129,6 +125,9 @@ def create_new_account()
   #get account holder
   puts "Who would you like to create an account for?"
   new_account[:holder_name] = gets.chomp
+  #get account amount
+  puts "What is the initial amount?"
+  new_account[:amount] = gets.chomp.to_i
   #get account type
   puts "What type of account is it? (business/personal)"
   new_account[:type] = gets.chomp.downcase
@@ -136,8 +135,5 @@ def create_new_account()
     puts "Invalid account type. Please enter business or personal:"
     new_account[:type] = gets.chomp.downcase
   end
-  #get account amount
-  puts "What is the initial amount?"
-  new_account[:amount] = gets.chomp.to_i
-  return new_account
+  new_account
 end

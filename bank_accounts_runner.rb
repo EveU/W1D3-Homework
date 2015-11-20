@@ -31,7 +31,7 @@ puts "The average bank account value is #{average_account_value}"
 puts "\n"
 
 ##total cash in business accounts
-total_business_cash = total_cash_in_business_accounts()
+total_business_cash = total_cash_in_bank("business")
 puts "Total in business accounts: #{total_business_cash}"
 puts "\n"
 
@@ -45,14 +45,14 @@ puts "#{largest_account_holder} has the largest bank account."
 puts "\n"
 
 ##holder of largest personal account
-largest_personal_acc_holder = largest_pers_acc_holder()
+largest_personal_acc_holder = largest_bank_account_holder("personal")
 puts "#{largest_personal_acc_holder} has the largest personal account."
 puts "\n"
 
 ###any other functionality you want to add.
 
 ##total cash in personal accounts
-total_personal_cash = total_cash_in_personal_accounts()
+total_personal_cash = total_cash_in_bank("personal")
 puts "Total in personal accounts: #{total_personal_cash}"
 puts "\n"
 
@@ -64,7 +64,7 @@ puts business_personal_difference
 # new_account_1 = create_new_account()
 # ACCOUNTS << new_account_1
 ACCOUNTS << create_new_account()
-puts "New account added for #{ACCOUNTS.last[:holder_name]}. \n Amount: #{ACCOUNTS.last[:amount]} \n Type: #{ACCOUNTS.last[:type]}"
+puts "\nNew account created! \nHolder: #{ACCOUNTS.last[:holder_name]} \nAmount: #{ACCOUNTS.last[:amount]} \nType: \t#{ACCOUNTS.last[:type]}"
 puts "\n" 
 
 ##withdraw cash
